@@ -143,6 +143,10 @@
 			d1.getMonth() == d2.getMonth() &&
 			d1.getDate() == d2.getDate(); 
 	}
+	
+	function isSameMonth(d1, d2) {
+		return (d1.getFullYear() === d2.getFullYear() && d1.getMonth() == d2.getMonth());
+	}
 
 	function parseDate(val) {
 		
@@ -585,11 +589,20 @@
 					
 					// disabled
 					if (min && date < min) {
-						a.add(pm).addClass(css.disabled);						
+						if(isSameMonth(date, min)) {
+							a.addClass(css.disabled);
+						} else {
+							a.add(pm).addClass(css.disabled);
+						}
+						
 					}
 					
 					if (max && date > max) {
-						a.add(nm).addClass(css.disabled);						
+						if(isSameMonth(date, max)) {
+							a.addClass(css.disabled);						
+						} else {
+							a.add(nm).addClass(css.disabled);						
+						}
 					}
 					
 					a.attr("href", "#" + num).text(num).data("date", date);					
